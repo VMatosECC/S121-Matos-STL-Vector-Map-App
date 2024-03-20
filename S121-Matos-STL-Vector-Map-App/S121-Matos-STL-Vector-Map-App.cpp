@@ -14,11 +14,17 @@ void experiment02();
 void showWithIterator(vector<int> v);
 void showWithRangeBasedLoop(vector<int> v);
 void showUsingIndices(vector<int> v);
+
+template <class T> void sortVector(vector<T>& v);
+
 //void showVector(vector<int> v, string caption);
 //void showVector(vector<string> v, string caption);
 
 template <class T> void showVector(vector<T> v, string caption = "",
                                    char terminator = ' ');
+
+
+
 
 int main()
 {
@@ -33,11 +39,24 @@ void experiment02() {
     vector<int> v1{ 33, 22, 44, 55, 11 };
     showVector(v1, "Original vector");
 
+    sortVector(v1);
+    showVector(v1, "SORTED VECTOR<INT> IS...");
+
+    
+
     vector<string> v2{ "Homer", "Bart", "Maggie", "Lisa", "Marge" };
     showVector(v2, "The Simpsons");
 
+    sortVector(v2);
+    showVector(v2, "SORTED VECTOR<STRING> IS...");
+
+
     vector<double> v3{ 11.11, 33.33, 22.22 };
     showVector(v3, "Here are the doubles...");
+
+    sortVector(v3);
+    showVector(v3, "SORTED VECTOR<DOUBLE> IS...");
+
 
     vector<Item> v4{
         Item("F2222", "banana", .25, "Chiqita"),
@@ -47,10 +66,34 @@ void experiment02() {
     };
     showVector(v4, "Fruit Database", '\n');
 
+    sortVector(v4);
+    showVector(v4, "SORTED VECTOR<ITEM> IS ...", '\n');
 
+    Item g("X2000", "guava", 1.5, "Tico Corp");
+    v4.insert(v4.begin() + 1, g);
+    showVector(v4, "Fruit Database aftre adding guava", '\n');
+
+    v4.erase(v4.begin() + 2);
+    showVector(v4, "Fruit Database after removing banana", '\n');
 }
 //-------------------------------------------------------------
 
+template <class T>
+void sortVector(vector<T>& v)
+{
+    for (int i = 0; i < v.size(); i++)
+    {
+        for (int j = i; (j > 0) && (v[j - 1] > v[j]);  j--) {
+            T temp = v[j - 1];
+            v[j - 1] = v[j];
+            v[j] = temp;
+        }
+    }
+}
+
+
+
+// ------------------------------------------------------------
 template <class T> 
 void showVector(vector<T> v, string caption, char terminator) {
     cout << endl << caption << endl;

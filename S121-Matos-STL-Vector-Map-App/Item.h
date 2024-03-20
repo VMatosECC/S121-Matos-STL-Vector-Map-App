@@ -154,6 +154,11 @@ public:
         return si;
     }
 
+    //Overload comparison operator <
+    bool operator> (const Item& other) {
+        //return this->getPrice() > other.getPrice();
+        return this->getName() > other.getName();
+    }
 };
 
 //Initialization of static data members
